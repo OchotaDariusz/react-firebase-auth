@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
+import {useNavigate} from "react-router-dom";
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Input from '@mui/material/Input';
@@ -7,10 +8,35 @@ import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import LockPersonIcon from '@mui/icons-material/LockPerson';
+import { auth } from "../../firebase.js";
+import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 
-export default function LoginBox() {
+function LoginBox({setUser}) {
+    const loginRef = useRef()
+    const passwordRef = useRef()
+    const navigate = useNavigate()
+
+    const login = e => {
+        e.preventDefault()
+        signInWithEmailAndPassword(auth, loginRef.current.value, passwordRef.current.value)
+            .then((userCredential) => {
+                setUser(userCredential.user.email)
+            })
+            .catch((error) => {
+                console.error('Cannot login.')
+                console.error(error.message)
+            })
+        navigate('/')
+    }
+
+    useEffect(() => {
+        onAuthStateChanged(auth, (user) => {
+            if (user) navigate('/')
+        })
+    })
+
     return (
-        <Box component="form" sx={{
+        <Box component="form" onSubmit={login} sx={{
             p: 2,
             boxShadow: '0 0 5px 5px #eee',
             borderRadius: '4px',
@@ -29,6 +55,7 @@ export default function LoginBox() {
                 </InputLabel>
                 <Input
                     id="input-login"
+                    inputRef={loginRef}
                     startAdornment={
                         <InputAdornment position="start">
                             <AccountCircle/>
@@ -38,10 +65,12 @@ export default function LoginBox() {
             </FormControl>
             <FormControl variant="standard">
                 <InputLabel htmlFor="input-password">
-                    E-mail
+                    Password
                 </InputLabel>
                 <Input
                     id="input-password"
+                    inputRef={passwordRef}
+                    type="password"
                     startAdornment={
                         <InputAdornment position="start">
                             <LockPersonIcon/>
@@ -66,3 +95,5 @@ export default function LoginBox() {
         </Box>
     );
 }
+
+export default LoginBox
