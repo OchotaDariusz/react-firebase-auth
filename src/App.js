@@ -1,25 +1,22 @@
-import logo from './logo.svg';
+import React from 'react';
+import {Route, Routes} from 'react-router-dom';
+import Fade from '@mui/material/Fade'
+import ProfileBox from './components/ProfileBox/ProfileBox'
+import LoginBox from './components/LoginBox/LoginBox'
+import RegisterBox from './components/RegisterBox/RegisterBox'
 import './App.css';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <div className="content">
+
+                <Routes>
+                    <Route path="/" element={<ProfileBox/>}/>
+                    <Route path="login" element={<LoginBox/>}/>
+                    <Route path="register" element={<RegisterBox/>}/>
+                </Routes>
+        </div>
+    );
 }
 
 export default App;
