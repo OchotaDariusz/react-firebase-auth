@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/react-firebase-auth/static/css/main.259b3369.css",
-    "main.js": "/react-firebase-auth/static/js/main.3cdebf72.js",
+    "main.js": "/react-firebase-auth/static/js/main.c001ddb2.js",
     "index.html": "/react-firebase-auth/index.html",
     "main.259b3369.css.map": "/react-firebase-auth/static/css/main.259b3369.css.map",
-    "main.3cdebf72.js.map": "/react-firebase-auth/static/js/main.3cdebf72.js.map"
+    "main.c001ddb2.js.map": "/react-firebase-auth/static/js/main.c001ddb2.js.map"
   },
   "entrypoints": [
     "static/css/main.259b3369.css",
-    "static/js/main.3cdebf72.js"
+    "static/js/main.c001ddb2.js"
   ]
 }
