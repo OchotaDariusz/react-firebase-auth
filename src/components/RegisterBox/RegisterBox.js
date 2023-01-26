@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Input from '@mui/material/Input';
@@ -14,7 +14,7 @@ import { createUserWithEmailAndPassword, onAuthStateChanged } from "firebase/aut
 function RegisterBox({ setUser }) {
     const loginRef = useRef()
     const passwordRef = useRef()
-    const navigate = useNavigate()
+    const history = useHistory()
 
     const register = e => {
         e.preventDefault()
@@ -26,12 +26,12 @@ function RegisterBox({ setUser }) {
                 console.error('Cannot create account.')
                 console.error(error.message)
             })
-        navigate('/')
+        history.push('/')
     }
 
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
-            if (user) navigate('/')
+            if (user) history.push('/')
         })
     })
 
@@ -84,10 +84,10 @@ function RegisterBox({ setUser }) {
                 mt: 2
             }}>
 
-                <Button variant="contained" href="/login" sx={{
+                <Button variant="contained" onClick={()=>history.push('/login')} sx={{
                     marginRight: 1
                 }}>Login</Button>
-                <Button variant="contained" href="/" color="success">Profile</Button>
+                <Button variant="contained" onClick={()=>history.push('/')} color="success">Profile</Button>
                 <Button variant="contained" color="secondary" type="submit" sx={{
                     marginLeft: 1
                 }}>Register</Button>

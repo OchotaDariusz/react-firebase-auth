@@ -1,5 +1,5 @@
 import React, {useEffect, useRef} from 'react';
-import {useNavigate} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Input from '@mui/material/Input';
@@ -14,7 +14,7 @@ import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 function LoginBox({setUser}) {
     const loginRef = useRef()
     const passwordRef = useRef()
-    const navigate = useNavigate()
+    const history = useHistory()
 
     const login = e => {
         e.preventDefault()
@@ -26,12 +26,12 @@ function LoginBox({setUser}) {
                 console.error('Cannot login.')
                 console.error(error.message)
             })
-        navigate('/')
+        history.push('/')
     }
 
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
-            if (user) navigate('/')
+            if (user) history.push('/')
         })
     })
 
@@ -87,8 +87,8 @@ function LoginBox({setUser}) {
                 <Button variant="contained" type="submit" sx={{
                     marginRight: 1
                 }}>Login</Button>
-                <Button variant="contained" href="/" color="success">Profile</Button>
-                <Button variant="contained" color="secondary" href="/register" sx={{
+                <Button variant="contained" onClick={()=>history.push('/')} color="success">Profile</Button>
+                <Button variant="contained" color="secondary" onClick={()=>history.push('/register')} sx={{
                     marginLeft: 1
                 }}>Register</Button>
             </Box>

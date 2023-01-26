@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import ProfileBox from './components/ProfileBox/ProfileBox'
 import LoginBox from './components/LoginBox/LoginBox'
 import RegisterBox from './components/RegisterBox/RegisterBox'
@@ -10,11 +10,12 @@ function App() {
 
     return (
         <div className="content">
-                <Routes>
-                    <Route path="/" element={<ProfileBox user={user} setUser={setUser} />}/>
-                    <Route path="login" element={<LoginBox setUser={setUser} />}/>
-                    <Route path="register" element={<RegisterBox setUser={setUser} />}/>
-                </Routes>
+                <Switch>
+                    <Route exact path="/" render={() => <ProfileBox user={user} setUser={setUser} />}/>
+                    <Route exact path="/login" render={() => <LoginBox setUser={setUser} />}/>
+                    <Route exact path="/register" render={() => <RegisterBox setUser={setUser} />}/>
+                    <Route path="*" render={() => <Redirect to={"/"} />} />
+                </Switch>
         </div>
     );
 }

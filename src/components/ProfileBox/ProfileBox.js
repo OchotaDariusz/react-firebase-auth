@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
+import { useHistory } from "react-router-dom";
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import {auth} from "../../firebase.js";
 import {signOut, onAuthStateChanged} from "firebase/auth";
 
 function ProfileBox({ user, setUser }) {
+    const history = useHistory()
 
     const logout = () => {
         signOut(auth).then(() => {
@@ -44,11 +46,11 @@ function ProfileBox({ user, setUser }) {
                 justifyContent: 'center',
                 mt: 2
             }}>
-                <Button variant="contained" href="/login" sx={{
+                <Button variant="contained" onClick={()=>history.push('/login')} sx={{
                     marginRight: 1
                 }}>Login</Button>
                 <Button variant="contained" onClick={logout} color="error">Log Out</Button>
-                <Button variant="contained" color="secondary" href="/register" sx={{
+                <Button variant="contained" color="secondary" onClick={()=>history.push('/register')} sx={{
                     marginLeft: 1
                 }}>Register</Button>
             </Box>
